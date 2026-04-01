@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserProvider } from './contexts/UserContext';
 import { PermissionsProvider } from './contexts/PermissionsContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -152,13 +152,7 @@ function App() {
           <Route
             path="/prompts"
             element={
-              <ProtectedRoute>
-                <UnifiedLayout headerActions={<AgentPromptsHeaderActions />}>
-                  <Suspense fallback={<PageLoader />}>
-                    <AgentPromptsPage />
-                  </Suspense>
-                </UnifiedLayout>
-              </ProtectedRoute>
+              <Navigate to="/knowledge/agent-prompts" replace />
             }
           />
           <Route
@@ -174,13 +168,7 @@ function App() {
           <Route
             path="/data"
             element={
-              <ProtectedRoute>
-                <UnifiedLayout headerActions={<DataHeaderActions />}>
-                  <Suspense fallback={<PageLoader />}>
-                    <DataPage />
-                  </Suspense>
-                </UnifiedLayout>
-              </ProtectedRoute>
+              <Navigate to="/knowledge/data-tables" replace />
             }
           />
           <Route
@@ -330,12 +318,28 @@ function App() {
           <Route
             path="/knowledge"
             element={
+              <Navigate to="/knowledge/sources" replace />
+            }
+          />
+          <Route
+            path="/knowledge/sources"
+            element={
               <ProtectedRoute>
                 <UnifiedLayout headerActions={<KnowledgeHeaderActions />}>
                   <Suspense fallback={<PageLoader />}>
                     <KnowledgeSourcesPage />
                   </Suspense>
                 </UnifiedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/sources/:id"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <KnowledgeSourceFormPageWrapper />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -349,6 +353,75 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/knowledge/data-tables"
+            element={
+              <ProtectedRoute>
+                <UnifiedLayout headerActions={<DataHeaderActions />}>
+                  <Suspense fallback={<PageLoader />}>
+                    <DataPage />
+                  </Suspense>
+                </UnifiedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/data-tables/new"
+            element={
+              <ProtectedRoute>
+                <DataTableBuilderWrapper />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/data-tables/:tableId"
+            element={
+              <ProtectedRoute>
+                <DataTableViewWrapper />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/data-tables/:tableId/:recordName"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <DataRecordViewWrapper />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/data-tables/:tableId/edit"
+            element={
+              <ProtectedRoute>
+                <DataTableBuilderWrapper />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/agent-prompts"
+            element={
+              <ProtectedRoute>
+                <UnifiedLayout headerActions={<AgentPromptsHeaderActions />}>
+                  <Suspense fallback={<PageLoader />}>
+                    <AgentPromptsPage />
+                  </Suspense>
+                </UnifiedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/knowledge/agent-prompts/:id"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <AgentPromptFormPageWrapper />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/agent-prompts" element={<Navigate to="/knowledge/agent-prompts" replace />} />
           <Route
             path="/mcp"
             element={

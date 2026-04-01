@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { AppSidebar } from '../components/app-sidebar';
+import { KnowledgeSidebar } from '../components/knowledge/KnowledgeSidebar';
 import { UnifiedHeader } from './UnifiedHeader';
 import {
   SidebarProvider,
@@ -23,9 +24,13 @@ interface UnifiedLayoutProps {
 }
 
 export function UnifiedLayout({ children, hideHeader, headerActions, breadcrumbs }: UnifiedLayoutProps) {
+  const location = useLocation();
+  const showKnowledgeSidebar = location.pathname.startsWith('/knowledge');
+
   return (
     <SidebarProvider>
       <AppSidebar />
+      {showKnowledgeSidebar && <KnowledgeSidebar />}
       <SidebarInset className="h-svh max-h-svh overflow-hidden">
         {!hideHeader && (
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b">

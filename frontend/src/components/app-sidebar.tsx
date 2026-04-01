@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Home, Bot, Workflow, Database, Plug, MessageSquare, Zap, Server, ScrollText, Users, BookOpen } from "lucide-react"
+import { Home, Bot, Workflow, Plug, MessageSquare, Zap, Server, Users, BookOpen } from "lucide-react"
 import { useLocation } from "react-router-dom"
 
 import { NavMain } from "@/components/nav-main"
@@ -53,12 +53,6 @@ const allNavItems = [
     capability: "flows.use",
   },
   {
-    title: "Data",
-    url: "/data",
-    icon: Database,
-    capability: "agent.view_all",
-  },
-  {
     title: "Knowledge",
     url: "/knowledge",
     icon: BookOpen,
@@ -81,12 +75,6 @@ const allNavItems = [
     url: "/users",
     icon: Users,
     capability: "users.manage",
-  },
-  {
-    title: "Agent Prompts",
-    url: "/prompts",
-    icon: ScrollText,
-    capability: "agent.use",
   },
 ]
 
